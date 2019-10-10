@@ -14,7 +14,7 @@ RUN apt-get update && \
 # PHP Extension
     apt-get install -y mysql-client-5.7 libxml2-dev libmcrypt4 libmcrypt-dev libpng-dev libjpeg-dev libfreetype6 libfreetype6-dev && \
 # Install Soap PDO Mcrypt
-    docker-php-ext-install soap pdo_mysql mcrypt && \
+    docker-php-ext-install soap pdo_mysql mcrypt mysqli && \
 # Configure GD
     docker-php-ext-configure gd --with-jpeg-dir=/usr/lib/ --with-freetype-dir=/usr/lib/ && \
 # Install gd
@@ -46,8 +46,10 @@ RUN apt install -y nmap && \
     rm -rf /var/lib/apt/lists/* && \
 ##  3. Install 'Composer'
     curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin
-##  4. Set ktle-admin User
-RUN useradd -ms /bin/bash -g root -G sudo -p $(openssl passwd -1 Brandcreative1) ktle-admin
+##  Install Magerun/n98-magerun
+COPY files/magerun /usr/local/bin/magerun
+##  Install Modman
+COPY files/modman /usr/local/bin/modman
 COPY entrypoint.sh  /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
