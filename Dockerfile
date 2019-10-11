@@ -50,6 +50,7 @@ RUN apt install -y nmap && \
 COPY files/magerun /usr/local/bin/magerun
 ##  Install Modman
 COPY files/modman /usr/local/bin/modman
+COPY files/php.ini /usr/local/etc/php/php.ini
 COPY entrypoint.sh  /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
