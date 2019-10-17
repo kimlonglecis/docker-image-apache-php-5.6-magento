@@ -58,7 +58,11 @@ RUN cp -rf /usr/local/lib/libcurl* /usr/local/lib/libssh* /usr/lib/x86_64-linux-
 COPY files/magerun /usr/local/bin/magerun
 ##  Install Modman
 COPY files/modman /usr/local/bin/modman
+<<<<<<< HEAD
 COPY files/wp /usr/local/bin/wp
+=======
+COPY files/php.ini /usr/local/etc/php/php.ini
+>>>>>>> f632c32bae620debded3ad0c149a5e0f7f430137
 COPY entrypoint.sh  /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
