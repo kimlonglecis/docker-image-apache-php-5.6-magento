@@ -31,6 +31,7 @@ RUN apt-get update && \
     telnet \
     netcat \
     git-core \
+    libssl-dev \
     zip && \
     apt-get purge -y --auto-remove && \ 
     rm -rf /var/lib/apt/lists/*
@@ -46,10 +47,18 @@ RUN apt install -y nmap && \
     rm -rf /var/lib/apt/lists/* && \
 ##  3. Install 'Composer'
     curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin
+# Install Libcurl sftp
+RUN curl https://www.libssh2.org/download/libssh2-1.9.0.tar.gz | tar -xz -C /tmp/ && \
+    /tmp/libssh2-1.9.0/configure && make && make install
+    
+RUN curl https://curl.haxx.se/download/curl-7.66.0.tar.gz | tar -xz -C /tmp/ && \
+    /tmp/curl-7.66.0/configure --with-libssh2=/usr/local && make && make install
+RUN cp -rf /usr/local/lib/libcurl* /usr/local/lib/libssh* /usr/lib/x86_64-linux-gnu/
 ##  Install Magerun/n98-magerun
 COPY files/magerun /usr/local/bin/magerun
 ##  Install Modman
 COPY files/modman /usr/local/bin/modman
+COPY files/wp /usr/local/bin/wp
 COPY entrypoint.sh  /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
