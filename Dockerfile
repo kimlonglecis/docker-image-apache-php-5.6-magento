@@ -54,6 +54,9 @@ RUN curl https://www.libssh2.org/download/libssh2-1.9.0.tar.gz | tar -xz -C /tmp
 RUN curl https://curl.haxx.se/download/curl-7.66.0.tar.gz | tar -xz -C /tmp/ && \
     /tmp/curl-7.66.0/configure --with-libssh2=/usr/local && make && make install
 RUN cp -rf /usr/local/lib/libcurl* /usr/local/lib/libssh* /usr/lib/x86_64-linux-gnu/
+##  Install Ioncube
+COPY files/00-ioncube.ini /usr/local/etc/php/conf.d/00-ioncube.ini
+COPY files/ioncube_loader_lin_5.6.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_5.6.so
 ##  Install Magerun/n98-magerun
 COPY files/magerun /usr/local/bin/magerun
 ##  Install Modman
@@ -64,7 +67,7 @@ COPY entrypoint.sh  /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
 ##  5. Set WOKR_DIR
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 
 ## Docker image name:                           apache-php-5.6-magento-environment
