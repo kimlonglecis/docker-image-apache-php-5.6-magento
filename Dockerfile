@@ -56,7 +56,7 @@ RUN curl https://curl.haxx.se/download/curl-7.66.0.tar.gz | tar -xz -C /tmp/ && 
 RUN cp -rf /usr/local/lib/libcurl* /usr/local/lib/libssh* /usr/lib/x86_64-linux-gnu/
 ##  Install Ioncube
 COPY files/00-ioncube.ini /usr/local/etc/php/conf.d/00-ioncube.ini
-COPY files/ioncube_loader_lin_5.6.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/ioncube_loader_lin_5.6.so
+COPY files/ioncube_loader_lin_5.6.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226/ioncube_loader_lin_5.6.so
 ##  Install Magerun/n98-magerun
 COPY files/magerun /usr/local/bin/magerun
 ##  Install Modman
